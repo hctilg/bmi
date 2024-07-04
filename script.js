@@ -167,4 +167,5 @@ document.addEventListener('DOMContentLoaded', ev => {
 
 });
 
-window.onresize = ev => window.location.reload();
+// Just for Debug :
+// window.onresize = ev => window.location.reload();
