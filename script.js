@@ -86,18 +86,16 @@ function calculateBMI(age, sex, weight, height) {
   }
 }
 
-function getElementDimensions(element) {
-  var rect = element.getBoundingClientRect();
-  return { width: rect.width, height: rect.height };
-}
-
 document.addEventListener('DOMContentLoaded', ev => {
 
   // set the body to full width and height
   document.body.style.setProperty("--height", `${innerHeight}px`);
   document.body.style.setProperty("--width", `${innerWidth}px`);
 
-  const close_model = (ev) => document.querySelector("#result").classList.remove('is-active');
+  const close_model = (ev) => {
+    document.querySelector("#result").classList.remove('is-active');
+    document.querySelector("#chart-box .chart").classList.remove("adults");
+  };
   const modelBackground = document.querySelector("#result > div.modal-background");
   const modelClose = document.querySelector("#result > button.modal-close");
   
@@ -136,6 +134,7 @@ document.addEventListener('DOMContentLoaded', ev => {
     let weight_status = "Unknown";
 
     if (age >= 20) {
+      document.querySelector("#chart-box .chart").classList.add("adults");
       if (data.mainBMI < 16) weight_status = "Severe Thinness";
       else if (data.mainBMI <= 17) weight_status = "Moderate Thinness";
       else if (data.mainBMI <= 18.5) weight_status = "Mild Thinness";

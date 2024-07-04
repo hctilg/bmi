@@ -140,6 +140,14 @@ header h1 {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00d4ff",endColorstr="#ff9700",GradientType=1);
 }
 
+#chart-box .chart.adults {
+  background: rgb(0,212,255);
+  background: -moz-linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 25%, rgba(217,255,0,1) 26%, rgba(255,173,0,1) 50%, rgba(255,31,0,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 25%, rgba(217,255,0,1) 26%, rgba(255,173,0,1) 50%, rgba(255,31,0,1) 100%);
+  background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 25%, rgba(217,255,0,1) 26%, rgba(255,173,0,1) 50%, rgba(255,31,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00d4ff",endColorstr="#ff1f00",GradientType=1);
+}
+
 #chart-box .bar {
   position: relative;
   top: -42px;
