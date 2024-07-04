@@ -1,0 +1,337 @@
+@charset "urf-8";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "./bulma.css";
+
+::selection {
+  background-color: rgba(140, 0, 255, 0.6);
+}
+
+* {
+  box-sizing: border-box !important;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html, body {
+  width: var(--width);
+  min-height: var(--height);
+  overflow: hidden auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Nunito", arial, helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  background: #14161a;
+  color: #ffffff;
+}
+
+header {
+  margin: calc((10 * var(--height)) / 100) 0 2.5em;
+}
+
+header h1 {
+  font-size: calc(3rem + 1vw);
+  text-align: center;
+}
+
+#fields {
+  width: 100%;
+  min-height: calc((50 * var(--height)) / 100); /* 50% */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 1em calc(100vh - var(--height));
+}
+
+.select {
+  margin: 1em 0;
+}
+
+#calculate {
+  background-color: rgb(112, 0, 255);
+  border-radius: 12px;
+  margin-top: 2em;
+  min-width: 320px;
+  max-width: 300px;
+  width: 80%;
+  height: 50px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bolder;
+  transition-duration: .28s;
+  transition-property: box-shadow, transform, opacity, background;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+}
+
+#calculate:hover {
+  opacity: 0.9;
+}
+
+.field.has-addons {
+  align-items: center;
+}
+
+.control input {
+  border-top-left-radius: 0.375rem !important;
+  border-bottom-left-radius: 0.375rem !important;
+  overflow: hidden;
+}
+
+#fields .field, [for="gender_field"] {
+  min-width: 250px;
+}
+
+#fields label span {
+  padding-right: 20px;
+}
+
+#result .modal-content {
+  background-color: #14161a;
+  min-height: 300px;
+  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#bmi {
+  width: 100%;
+  text-align: center;
+  margin: 3em auto;
+}
+
+#bmi .title {
+  font-size: calc(5rem + 2vw);
+  font-weight: normal;
+}
+
+#bmi .subtitle {
+  font-size: calc(18px + 0.2vw);
+  color: #b4b4b4;
+}
+
+#chart-box {
+  width: 100%;
+  margin: 55px 0 2em;
+}
+
+#chart-box .chart {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 18px;
+  border-radius: 7pt;
+  background: rgb(0,212,255);
+  background: -moz-linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 15%, rgba(217,255,0,1) 85%, rgba(255,173,0,1) 95%, rgba(255,151,0,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 15%, rgba(217,255,0,1) 85%, rgba(255,173,0,1) 95%, rgba(255,151,0,1) 100%);
+  background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(29,255,0,1) 15%, rgba(217,255,0,1) 85%, rgba(255,173,0,1) 95%, rgba(255,151,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00d4ff",endColorstr="#ff9700",GradientType=1);
+}
+
+#chart-box .bar {
+  position: relative;
+  top: -42px;
+  left: var(--level);
+  background: inherit;
+  width: 28px;
+  height: 28px;
+  transform: rotate(-45deg);
+  border-radius: 50px 50px 50px 0;
+}
+
+.chart-list {
+  width: 100%;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.chart-list .item {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.chart-list .item.underweight .color {
+  --color: rgba(0,212,255,1);
+}
+
+.chart-list .item.normal .color {
+  --color: rgba(29,255,0,1);
+}
+
+.chart-list .item.overweight .color {
+  --color: rgba(217,255,0,1);
+}
+
+.chart-list .item.obese .color {
+  --color: rgba(255,151,0,1);
+}
+
+.chart-list .item .color {
+  width: 16px;
+  height: 16px;
+  background: var(--color);
+  border-radius: 3pt;
+}
+
+hr {
+  width: 100%;
+}
+
+#analysis {
+  width: 99.99999%;
+}
+
+#analysis .text {
+  margin: 5px 0 8px 0;
+  font-size: 16px;
+  color: #b4b4b4;
+}
+
+#analysis .link {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  margin: 8px 0 5px 0;
+  font-size: 16px;
+  color: #00ccff;
+}
+
+#analysis .title.text {
+  font-size: 18px;
+  margin-bottom: 1em;
+}
+
+#analysis .item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+#capture.active {
+  border: 5px solid blueviolet;
+}
+
+#capture.active .item.download,
+#capture:not(.active) #cc {
+  display: none;
+}
+
+#cc .text {
+  text-align: center;
+  margin: 1.2em 0 2px 0;
+  width: 100%;
+}
+
+#info {
+  width: 100%;
+  padding: 25px 14px 20px;
+}
+
+#info h3 {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+#info p, span {
+  margin: 5px 0 8px 0;
+  font-size: 16px;
+  color: #b4b4b4;
+}
+
+#info table.cinfoT {
+  width: 342px;
+  max-width: 100%;
+  align-content: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 2em auto;
+}
+
+#info table.cinfoT, #info table.cinfoT tbody {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#info table.cinfoT th, table.cinfoT td.cinfoHd, table.cinfoT td.cinfoHdL {
+  background-color: #2a3338;
+  font-weight: bold;
+  color: #fff;
+  padding: 5px 3px;
+}
+
+#info table.cinfoT td {
+  text-align: center;
+  padding: 10px 0px;
+  border: 1px solid #8500ff;
+  color: #fff;
+}
+
+#info table.cinfoT tr:nth-child(odd) {
+  background-color: #3d4449;
+}
+
+#info table.cinfoT tr:nth-child(even) {
+  background-color: #2a3338;
+}
+
+#info table.cinfoTS td.cinfoHd {
+  font-size: 13px;
+}
+
+#info table.cinfoTS td.cinfoHdL {
+  font-size: 13px;
+}
+
+#info table.cinfoTS td {
+  font-size: 13px;
+  padding: 3px 1px;
+}
+
+#info ul {
+  width: 99%;
+  padding: 7px 14px 7px 28px;
+}
+
+#info ul li {
+  width: 100%;
+}
+
+footer {
+  width: 100%;
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282a2f;
+  padding: 20px 0;
+}
+
+footer a {
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+footer p {
+  margin-right: 50px;
+  font-size: 18px;
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+
+    <!-- Old versions of IE need this to be in the first response chunk -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>BMI Calculator</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=0.85" />
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="176">
+
+    <meta name="title" content="BMI Calculator">
+    <meta name="description" content="Free Body Mass Index calculator gives out the BMI value." />
+    <meta name="keywords" content="bmi, calculator, body mass index, free" />
+
+    <link rel="canonical" href="https://hctilg.github.io/bmi/"/>
+    <meta property="og:url" content="https://hctilg.github.io/bmi"/>
+    <meta property="og:site_name" content="Glitch"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="BMI Calculator" />
+    <meta property="og:description" content="Free Body Mass Index calculator gives out the BMI value."/>
+    <meta property="og:locale" content="en_US"/>
+    
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+  <body style="--height: 100vh;--width: 100vw;">
+    <header>
+      <h1>BMI Calculator</h1>
+    </header>
+    <form id="fields">
+      <div class="field has-addons">
+        <label for="age_field"><span>Age : </span></label>
+        <p class="control">
+          <input type="number" min="2" max="120" value="25" name="age" id="age_field" class="input" required />
+        </p>
+        <p class="control">
+          <a class="button is-static">Years old</a>
+        </p>
+      </div>
+      <label for="gender_field" style="display: flex;align-items: center;">
+        <span>Gender : </span>
+        <div class="control">
+          <div class="select">
+            <select id="gender_field" required>
+              <option selected value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="non-binary">Non-binary</option>
+            </select>
+          </div>
+        </div>
+      </label>
+      <div class="field has-addons">
+        <label for="height_field"><span>Height : </span></label>
+        <p class="control i">
+          <input type="number" min="60" max="280" value="170" name="height" id="height_field" class="input" required />
+        </p>
+        <p class="control">
+          <a class="button is-static">Cm</a>
+        </p>
+      </div>
+      <div class="field has-addons">
+        <label for="weight_field"><span>Weight : </span></label>
+        <p class="control i">
+          <input type="number" min="7" max="680" value="60" name="weight" id="weight_field" class="input" required />
+        </p>
+        <p class="control">
+          <a class="button is-static">Kg</a>
+        </p>
+      </div>
+      <button id="calculate">Calculate</button>
+    </form>
+    <section id="result" class="modal">
+      <div class="modal-background"></div>
+      <div id="capture" class="modal-content">
+        <div id="bmi">
+          <h2 class="title"></h2>
+          <span class="subtitle">Body Mass Index</span>
+        </div>
+        <div id="chart-box">
+          <div class="chart">
+            <div class="bar" style="--level: 0%;"></div>
+          </div>
+        </div>
+        <div class="chart-list">
+          <div class="item underweight">
+            <div class="color"></div>
+            <span>Underweight</span>
+          </div>
+          <div class="item normal">
+            <div class="color"></div>
+            <span>Normal</span>
+          </div>
+          <div class="item overweight">
+            <div class="color"></div>
+            <span>Overweight</span>
+          </div>
+          <div class="item obese">
+            <div class="color"></div>
+            <span>Obese</span>
+          </div>
+        </div>
+        <hr>
+        <div id="analysis">
+          <p class="title text">Analysis</p>
+          <p class="item"><strong>Status</strong> &nbsp; <span id="weight_status" class="text"></span></p>
+          <p class="item"><strong>Height (cm)</strong> &nbsp; <span id="your_height" class="text"></span></p>
+          <p class="item"><strong>Suggested weight (Kg)</strong> &nbsp; <span id="suggested_weight" class="text"></span></p>
+          <p class="item download"><a id="download" href="#" download="my-bmi.png" class="link">Take Screenshot</a></p>
+          <p id="cc" class="item"><span class="text">https://hctilg.github.io/bmi</span></p>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </section>
+    <section id="info">
+      <h3>BMI introduction</h2>
+      <p>BMI is a measurement of a person's leanness or corpulence based on their height and weight, and is intended to quantify tissue mass. It is widely used as a general indicator of whether a person has a healthy body weight for their height. Specifically, the value obtained from the calculation of BMI is used to categorize whether a person is underweight, normal weight, overweight, or obese depending on what range the value falls between. These ranges of BMI vary based on factors such as region and age, and are sometimes further divided into subcategories such as severely underweight or very severely obese. Being overweight or underweight can have significant health effects, so while BMI is an imperfect measure of healthy body weight, it is a useful indicator of whether any additional testing or action is required. Refer to the table below to see the different categories based on BMI that are used by the calculator.</p>
+      
+      <h3>BMI table for adults</h3>
+      <p>This is the World Health Organization's (WHO) recommended body weight based on BMI values for adults. It is used for both men and women, age 20 or older.</p>
+      <table class="cinfoT" align="center">
+        <tbody>
+          <tr>
+            <td class="cinfoHd">Classification</td>
+            <td class="cinfoHdL">BMI range - kg/m<sup>2</sup></td>
+          </tr>
+          <tr>
+            <td>Severe Thinness</td>
+            <td align="center">&lt;&nbsp; 16</td>
+          </tr>
+          <tr>
+            <td>Moderate Thinness</td>
+            <td align="center">16 - 17</td>
+          </tr>
+          <tr>
+            <td>Mild Thinness</td>
+            <td align="center">17 - 18.5</td>
+          </tr>
+          <tr>
+            <td>Normal</td>
+            <td align="center">18.5 - 25</td>
+          </tr>
+          <tr>
+            <td>Overweight</td>
+            <td align="center">25 - 30</td>
+          </tr>
+          <tr>
+            <td>Obese Class I</td>
+            <td align="center">30 - 35</td>
+          </tr>
+          <tr>
+            <td>Obese Class II</td>
+            <td align="center">35 - 40</td>
+          </tr>
+          <tr>
+            <td>Obese Class III</td>
+            <td align="center">&gt;&nbsp; 40</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h3>BMI table for children and teens, age 2-20</h3>
+      <p>The Centers for Disease Control and Prevention (CDC) recommends BMI categorization for children and teens between age 2 and 20.</p>
+      <table class="cinfoT" align="center">
+        <tbody>
+          <tr>
+            <td class="cinfoHd">Category</td>
+            <td class="cinfoHdL">Percentile Range</td>
+          </tr>
+          <tr>
+            <td>Underweight</td>
+            <td align="center">&lt;&nbsp;5%</td>
+          </tr>
+          <tr>
+            <td>Healthy weight</td>
+            <td align="center">5% - 85%</td>
+          </tr>
+          <tr>
+            <td>At risk of overweight</td>
+            <td align="center">85% - 95%</td>
+          </tr>
+          <tr>
+            <td>Overweight</td>
+            <td align="center">&gt;&nbsp;95%</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h3>Risks associated with being overweight</h3>
+      <p>Being overweight increases the risk of a number of serious diseases and health conditions. Below is a list of said risks, according to the Centers for Disease Control and Prevention (CDC):</p>
+      <ul>
+        <li>High blood pressure</li>
+        <li>Higher levels of LDL cholesterol, which is widely considered "bad cholesterol," lower levels of HDL cholesterol, considered to be good cholesterol in moderation, and high levels of triglycerides</li>
+        <li>Type II diabetes</li>
+        <li>Coronary heart disease</li>
+        <li>Stroke</li>
+        <li>Gallbladder disease</li>
+        <li>Osteoarthritis, a type of joint disease caused by breakdown of joint cartilage</li>
+        <li>Sleep apnea and breathing problems</li>
+        <li>Certain cancers (endometrial, breast, colon, kidney, gallbladder, liver)</li>
+        <li>Low quality of life</li>
+        <li>Mental illnesses such as clinical depression, anxiety, and others</li>
+        <li>Body pains and difficulty with certain physical functions</li>
+        <li>Generally, an increased risk of mortality compared to those with a healthy BMI</li>
+      </ul>
+      <p>As can be seen from the list above, there are numerous negative, in some cases fatal, outcomes that may result from being overweight. Generally, a person should try to maintain a BMI below 25 kg/m2, but ideally should consult their doctor to determine whether or not they need to make any changes to their lifestyle in order to be healthier.</p>
+      
+      <h3>Risks associated with being underweight</h3>
+      <p>Being underweight has its own associated risks, listed below:</p>
+      <ul>
+        <li>Malnutrition, vitamin deficiencies, anemia (lowered ability to carry blood vessels)</li>
+        <li>Osteoporosis, a disease that causes bone weakness, increasing the risk of breaking a bone</li>
+        <li>A decrease in immune function</li>
+        <li>Growth and development issues, particularly in children and teenagers</li>
+        <li>Possible reproductive issues for women due to hormonal imbalances that can disrupt the menstrual cycle. Underweight women also have a higher chance of miscarriage in the first trimester</li>
+        <li>Potential complications as a result of surgery</li>
+        <li>Generally, an increased risk of mortality compared to those with a healthy BMI</li>
+      </ul>
+      <p>In some cases, being underweight can be a sign of some underlying condition or disease such as anorexia nervosa, which has its own risks. Consult your doctor if you think you or someone you know is underweight, particularly if the reason for being underweight does not seem obvious.</p>
+      
+      <h3>Limitations of BMI</h3>
+      <p>Although BMI is a widely used and useful indicator of healthy body weight, it does have its limitations. BMI is only an estimate that cannot take body composition into account. Due to a wide variety of body types as well as distribution of muscle, bone mass, and fat, BMI should be considered along with other measurements rather than being used as the sole method for determining a person's healthy body weight.</p>
+      <p><b>In adults:</b></p>
+      <p>BMI cannot be fully accurate because it is a measure of excess body weight, rather than excess body fat. BMI is further influenced by factors such as age, sex, ethnicity, muscle mass, body fat, and activity level, among others. For example, an older person who is considered a healthy weight, but is completely inactive in their daily life may have significant amounts of excess body fat even though they are not heavy. This would be considered unhealthy, while a younger person with higher muscle composition of the same BMI would be considered healthy. In athletes, particularly bodybuilders who would be considered overweight due to muscle being heavier than fat, it is entirely possible that they are actually at a healthy weight for their body composition. Generally, according to the CDC:</p>
+      <ul>
+        <li>Older adults tend to have more body fat than younger adults with the same BMI.</li>
+        <li>Women tend to have more body fat than men for an equivalent BMI.</li>
+        <li>Muscular individuals and highly trained athletes may have higher BMIs due to large muscle mass.</li>
+      </ul>
+      <p><b>In children and adolescents:</b></p>
+      <p>The same factors that limit the efficacy of BMI for adults can also apply to children and adolescents. Additionally, height and level of sexual maturation can influence BMI and body fat among children. BMI is a better indicator of excess body fat for obese children than it is for overweight children, whose BMI could be a result of increased levels of either fat or fat-free mass (all body components except for fat, which includes water, organs, muscle, etc.). In thin children, the difference in BMI can also be due to fat-free mass.</p>
+      <p>That being said, BMI is fairly indicative of body fat for 90-95% of the population, and can effectively be used along with other measures to help determine an individual's healthy body weight.</p>
+        
+      <h3>BMI formula</h3>
+      <p>Below are the equations used for calculating BMI in the International System of Units (SI) and the US customary system (USC) using a 5'10", 160-pound individual as an example:</p>
+      <table align="center">
+        <tbody>
+          <tr>
+            <td>
+              <div style="padding-top:15px;"><b>SI, Metric Units:</b></div>
+              <table cellspacing="0" cellpadding="0" style="padding-left: 20px;">
+                <tbody>
+                  <tr>
+                    <td> BMI =&nbsp;</td>
+                    <td colspan="2">
+                      <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                          <tr>
+                            <td>mass (kg)</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#fff" height="1"></td>
+                          </tr>
+                          <tr>
+                            <td>height<sup>2</sup> (m)</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td align="right">&nbsp;=&nbsp;</td>
+                    <td colspan="2">
+                      <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                          <tr>
+                            <td>72.57</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#fff" height="1"></td>
+                          </tr>
+                          <tr>
+                            <td>1.78<sup>2</sup></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td align="right">&nbsp;=&nbsp;</td>
+                    <td>22.90</td>
+                    <td>
+                      <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                          <tr>
+                            <td>kg</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#fff" height="1"></td>
+                          </tr>
+                          <tr>
+                            <td>m<sup>2</sup></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="padding-top:5px;"><b>USC Units:</b></div>
+              <table cellspacing="0" cellpadding="0" style="padding-left: 20px;">
+                <tbody>
+                  <tr>
+                    <td> BMI = 703 ×&nbsp;</td>
+                      <td>
+                        <table cellspacing="0" cellpadding="0">
+                          <tbody>
+                            <tr>
+                              <td>mass (lbs)</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="#fff" height="1"></td>
+                            </tr>
+                            <tr>
+                              <td>height<sup>2</sup> (in)</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td align="right">= 703 ×&nbsp;</td>
+                      <td>
+                        <table cellspacing="0" cellpadding="0">
+                          <tbody>
+                            <tr>
+                              <td>160</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="#fff" height="1"></td>
+                            </tr>
+                            <tr>
+                              <td>70<sup>2</sup></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td align="right">= 22.96&nbsp;</td>
+                      <td>
+                        <table cellspacing="0" cellpadding="0">
+                          <tbody>
+                            <tr>
+                              <td>kg</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="#fff" height="1"></td>
+                            </tr>
+                            <tr>
+                              <td>m<sup>2</sup></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <footer>
+      <a href="https://github.com/hctilg/bmi">GitHub</a>
+      <p>Coded By ❤️</p>
+      <div></div>
+    </footer>
+
+    <script src="html2canvas.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
